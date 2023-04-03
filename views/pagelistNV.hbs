@@ -1,0 +1,118 @@
+{{!-- <div id="liveAlertPlaceholder" class="position-absolute top-0 start-50 translate-middle-x mt-3"></div> --}}
+<button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Thêm nhân viên
+</button>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Thêm nhân viên</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="addNV" method="post">
+                    <label for="name" class="form-label">Tên nhân viên:</label>
+                    <input type="text" class="form-control" name="nameNV" id="name">
+                    <label for="address" class="form-label">Địa chỉ:</label>
+                    <input type="text" class="form-control" name="addressNV" id="address">
+                    <label for="salary" class="form-label">Lương:</label>
+                    <input type="number" class="form-control" name="salaryNV" id="salary">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Xác nhận</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <table class="table table-light">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Lương</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each dataNV}}
+            <tr>
+                <th class="col-1" scope="row">{{@index}}</th>
+                <td>{{ten}}</td>
+                <td>{{diachi}}</td>
+                <td>{{luong}}</td>
+                <td class="col-1">
+
+                    {{!-- button update --}}
+                    {{!-- button delete --}}
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop{{_id}}">
+                            Sửa
+                        </button>
+                        <button type="button" class="btn" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal{{_id}}">
+                            Xóa
+                        </button>
+                    </div>
+                    {{!-- update nhanvien --}}
+                    <div class="modal fade" id="staticBackdrop{{_id}}" data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Sửa nhân viên</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="upNV" method="post">
+                                        <label for="name" class="form-label">Tên nhân viên:</label>
+                                        <input type="text" class="form-control" name="nameNV" id="name" value={{ten}}>
+                                        <label for="address" class="form-label">Địa chỉ:</label>
+                                        <input type="text" class="form-control" name="addressNV" id="address"
+                                            value={{diachi}}>
+                                        <label for="salary" class="form-label">Lương:</label>
+                                        <input type="number" class="form-control" name="salaryNV" id="salary"
+                                            value={{luong}}>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Hủy</button>
+                                            <button name="idEdit" value={{_id}} class="btn btn-primary"
+                                                type="submit">Xác nhận</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{!-- alert delete --}}
+                    <div class="modal fade" id="exampleModal{{_id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    Bạn có chắc chắn muốn xóa không?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                    <form method="get" action="deleteNV">
+                                        <button name="idNV" value={{_id}} class="btn btn-primary" type="submit">Đồng
+                                            ý</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
